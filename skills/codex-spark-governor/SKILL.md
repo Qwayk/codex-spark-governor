@@ -8,9 +8,9 @@ description: Govern long coding tasks in the Codex app with visible progress, Sp
 Use the main Codex chat as the only governor.
 
 Keep your own context focused on scope, decisions, blockers, and final judgment. Push noisy read-heavy work, narrow edits, and fast gap checks to the helper agents in `.codex/agents/`:
-- `csg_reader`
-- `csg_builder`
-- `csg_checker`
+- `spark_reader`
+- `spark_builder`
+- `spark_checker`
 
 ## Start
 
@@ -53,7 +53,7 @@ Keep your own context focused on scope, decisions, blockers, and final judgment.
 
 ## Helper agents
 
-### `csg_reader`
+### `spark_reader`
 
 Use for:
 - API doc mapping
@@ -64,7 +64,7 @@ Use for:
 - stale-name scans right after scaffolding
 - template drift checks
 
-### `csg_builder`
+### `spark_builder`
 
 Use for:
 - one bounded code change
@@ -74,7 +74,7 @@ Use for:
 - one focused fix from review findings
 - one focused polish pass after review
 
-### `csg_checker`
+### `spark_checker`
 
 Use for:
 - fast PASS/FAIL checks before final review
@@ -86,19 +86,19 @@ Use for:
 ## Recommended loop
 
 1. Map scope.
-   - Ask `csg_reader` to map the surface, source docs, existing code, and missing pieces.
-   - After scaffolding, ask `csg_reader` for a stale-name and template-drift scan before real writing starts.
+   - Ask `spark_reader` to map the surface, source docs, existing code, and missing pieces.
+   - After scaffolding, ask `spark_reader` for a stale-name and template-drift scan before real writing starts.
 2. Plan the smallest complete path.
    - Break the work into small checked steps.
    - Approve the endpoint list and coverage ledger in the main chat before broad implementation starts.
 3. Build in bounded slices.
-   - Use `csg_builder` for one slice at a time.
+   - Use `spark_builder` for one slice at a time.
    - Push code, docs, proof, examples, and narrow test work to Spark by default.
 4. Verify after each meaningful slice.
    - Run the smallest real test or proof that matches the changed scope.
    - Review the helper result in the main chat and either accept it or send back one narrow fix.
 5. Run a gap pass before calling the task complete.
-   - Ask `csg_checker` for missing endpoints, missing tests, docs drift, and standards drift.
+   - Ask `spark_checker` for missing endpoints, missing tests, docs drift, and standards drift.
    - If a helper misses the same narrow step twice, stop retrying that step and do the smallest direct main-chat fix needed to unblock progress.
 6. Do the final gate.
    - Follow `references/final-gate.md`.
@@ -125,4 +125,4 @@ Use for:
 - Prefer Spark helpers to save the stronger main chat for planning, tradeoffs, and final judgment.
 - Spark should write most first drafts and most first fixes. The stronger main chat should mostly approve, reject, and polish only where Spark still misses.
 - If a helper agent fails twice on the same narrow step, stop retrying that exact step and do the smallest direct work needed to unblock progress.
-- If the app exposes `/review`, use it as the last extra check. If it is not available, do a fresh direct final review in the main chat after `csg_checker`.
+- If the app exposes `/review`, use it as the last extra check. If it is not available, do a fresh direct final review in the main chat after `spark_checker`.

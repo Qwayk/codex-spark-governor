@@ -23,7 +23,7 @@ Do not say `done` until every check below passes.
 - Do not claim full coverage if any required row is still missing or still marked planned.
 
 7. Fresh review check
-- Run `csg_checker` on the changed scope.
+- Run `spark_checker` on the changed scope.
 - Do one fresh direct review in the main chat after reading the latest diff, tests, and docs.
 - If the app exposes `/review`, use it as the last extra check.
 

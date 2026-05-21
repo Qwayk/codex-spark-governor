@@ -1,4 +1,4 @@
-name = "csg_builder"
+name = "spark_builder"
 description = "Narrow Spark builder for one bounded code, docs, tests, proof, or examples change at a time."
 model = "gpt-5.3-codex-spark"
 model_reasoning_effort = "medium"

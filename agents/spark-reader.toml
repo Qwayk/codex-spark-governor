@@ -1,4 +1,4 @@
-name = "csg_reader"
+name = "spark_reader"
 description = "Fast read-only mapper for docs, code paths, endpoint inventory, stale copied names, and coverage gaps."
 model = "gpt-5.3-codex-spark"
 model_reasoning_effort = "medium"

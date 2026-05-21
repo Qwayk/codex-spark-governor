@@ -9,9 +9,9 @@ It is built for one simple pattern:
 
 This package includes:
 - the `codex-spark-governor` skill
-- `csg_reader` Spark helper
-- `csg_builder` Spark helper
-- `csg_checker` Spark helper
+- `spark_reader` Spark helper
+- `spark_builder` Spark helper
+- `spark_checker` Spark helper
 - a small Codex config snippet
 
 ## Fast install
