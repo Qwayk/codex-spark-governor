@@ -1,14 +1,11 @@
 # Repo rules
 
-- Read repo root `AGENTS.md` first.
-- Read the nearest scoped `AGENTS.md` before changing code.
-- Keep user-facing replies short, simple, and in plain English.
-- State the current reality before extra explanation.
-- Stay on `main`.
-- Do not create branches or PRs unless the user asks.
+- Read repo root instructions first when the repo has them.
+- Read the nearest local instructions before changing code.
+- Keep progress visible in the main chat.
 - Do not print secrets.
 - Do not use destructive git commands.
 - Do not overwrite unrelated user work.
-- Ask only when a real blocker, real risk, or real business choice changes the path.
+- Ask only when there is a real blocker, real risk, or a user choice is needed.
 
-When the task is inside a deeper folder, follow the nearest scoped docs there as the local source of truth.
+If the repo has its own standards, tests, release steps, or review rules, those win.

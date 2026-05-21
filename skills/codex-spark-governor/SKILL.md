@@ -1,6 +1,6 @@
 ---
 name: codex-spark-governor
-description: Govern long coding tasks in the Codex app with visible progress, Spark helper agents, and a strict finish line. Use when Codex should stay in one main chat, keep its context clean, drive a multi-step build or repair task from start to real completion, and avoid saying done early. Especially use for safe API CLI work in this repo where code, tests, docs, coverage, and standards all need to be checked before completion.
+description: Govern long tasks in Codex with visible progress, Spark helper agents, and a strict finish line. Use when one main chat should stay in charge, helper agents should do most of the narrow work, and the task should not be marked done early.
 ---
 
 # Codex Spark Governor
@@ -15,12 +15,13 @@ Keep your own context focused on scope, decisions, blockers, and final judgment.
 ## Start
 
 - Restate the user goal and the true finish line in 2-4 short bullets.
-- Read repo root `AGENTS.md` first.
-- Read the nearest scoped `AGENTS.md` before changing code.
-- When the task is an API tool, read:
+- Read repo root instructions first when the repo has them.
+- Read the nearest local instructions before changing code.
+- Read:
   - `references/repo-rules.md`
-  - `references/api-tool-finish-line.md`
+  - `references/task-finish-line.md`
   - `references/final-gate.md`
+- If the repo has task-specific standards, proof steps, release checks, or review rules, read those before broad implementation starts.
 - If the repo helper agents are missing, say so clearly and continue in single-agent mode only if the user still wants to proceed.
 
 ## Operating mode
@@ -28,12 +29,12 @@ Keep your own context focused on scope, decisions, blockers, and final judgment.
 - Stay as governor, reviewer, and final judge.
 - Keep the stronger main chat for only these jobs:
   - approve the plan
-  - approve the endpoint and coverage map
+  - approve the main checklist
   - review each finished helper slice
   - do the final review
   - decide `done`
 - Use Spark helpers by default for most of the work:
-  - API mapping
+  - task mapping
   - repo exploration
   - code slices
   - docs drafts
@@ -56,11 +57,10 @@ Keep your own context focused on scope, decisions, blockers, and final judgment.
 ### `spark_reader`
 
 Use for:
-- API doc mapping
-- endpoint inventory
+- repo and docs mapping
+- task inventory
 - repo exploration
 - test and docs gap finding
-- coverage ledger checks
 - stale-name scans right after scaffolding
 - template drift checks
 
@@ -80,7 +80,7 @@ Use for:
 - fast PASS/FAIL checks before final review
 - standards mismatch checks
 - docs/code alignment checks
-- missing endpoint coverage checks
+- scope gap checks
 - first-pass final gap review before the stronger main chat reviews
 
 ## Recommended loop
@@ -90,7 +90,7 @@ Use for:
    - After scaffolding, ask `spark_reader` for a stale-name and template-drift scan before real writing starts.
 2. Plan the smallest complete path.
    - Break the work into small checked steps.
-   - Approve the endpoint list and coverage ledger in the main chat before broad implementation starts.
+   - Approve the main checklist in the main chat before broad implementation starts.
 3. Build in bounded slices.
    - Use `spark_builder` for one slice at a time.
    - Push code, docs, proof, examples, and narrow test work to Spark by default.
@@ -98,7 +98,7 @@ Use for:
    - Run the smallest real test or proof that matches the changed scope.
    - Review the helper result in the main chat and either accept it or send back one narrow fix.
 5. Run a gap pass before calling the task complete.
-   - Ask `spark_checker` for missing endpoints, missing tests, docs drift, and standards drift.
+   - Ask `spark_checker` for missing tests, docs drift, standards drift, and scope gaps.
    - If a helper misses the same narrow step twice, stop retrying that step and do the smallest direct main-chat fix needed to unblock progress.
 6. Do the final gate.
    - Follow `references/final-gate.md`.
@@ -106,18 +106,18 @@ Use for:
 
 ## Done rules
 
-- Never say `done` because the code looks complete.
-- Never say `done` before tests, docs, and standards are checked.
-- Never claim full API coverage without an explicit coverage map and matching CLI surface.
-- For API tools, treat missing docs, missing examples, missing proof files, and missing coverage rows as unfinished work, not optional polish.
+- Never say `done` because the first draft works.
+- Never say `done` before tests or proof, docs or usage notes when needed, and repo rules are checked.
+- If the task promises full coverage, full cleanup, or full migration, do not claim that without an explicit checklist or map that matches the work.
+- Treat stale copied files, known mismatches, and known missing follow-up as unfinished work.
 - Before saying the build is ready, print a short final status table with PASS or FAIL for:
+  - scope
   - code
-  - docs
   - tests
-  - api_coverage
-  - proof
-  - skills wrapper
+  - docs
+  - task-specific checks
   - final review
+- If a line truly does not apply, mark it PASS and explain why in one short note below the table.
 - Do not say `done` if any row is FAIL.
 
 ## Notes

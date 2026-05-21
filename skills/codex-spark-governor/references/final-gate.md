@@ -13,14 +13,15 @@ Do not say `done` until every check below passes.
 - Treat failing tests, missing tests for critical new behavior, or unverified risky paths as unfinished work.
 
 4. Docs check
-- Confirm README, command docs, onboarding docs, proof docs, and examples match the real behavior.
+- Confirm README, usage notes, examples, and other changed docs match the real behavior.
 
 5. Standards check
 - Confirm repo root rules, nearest scoped rules, and task-specific standards are still followed.
 
-6. Coverage check
-- For API tools, confirm the CLI surface, docs, and `docs/api_coverage.md` agree.
-- Do not claim full coverage if any required row is still missing or still marked planned.
+6. Task-specific check
+- Confirm the task-specific promised checks really passed.
+- Examples: coverage maps, migration steps, release notes, examples, proof files, or cleanup scans.
+- Do not claim a full result if the promised proof for that claim is still missing.
 
 7. Fresh review check
 - Run `spark_checker` on the changed scope.
@@ -31,13 +32,14 @@ Do not say `done` until every check below passes.
 - Confirm there is no known real blocker, known mismatch, or known missing follow-up that should stop completion.
 
 Before saying the build is ready, print a short final status table with PASS or FAIL for:
+- scope
 - code
-- docs
 - tests
-- api_coverage
-- proof
-- skills wrapper
+- docs
+- task-specific checks
 - final review
+
+If a line truly does not apply, mark it PASS and explain why in one short note below the table.
 
 Do not say `done` if any row is FAIL.
 

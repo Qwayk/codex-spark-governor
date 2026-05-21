@@ -1,18 +1,37 @@
 # Codex Spark Governor
 
-`codex-spark-governor` is a Codex skill plus Spark helper agents for long coding tasks.
+Use more of your Spark limit without giving up strong-model review.
 
-It is built for one simple pattern:
-- one strong main Codex chat stays in charge
-- `GPT-5.3-Codex-Spark` helper agents do most of the narrow work
-- the main chat reviews, approves, and decides when the task is really done
+`codex-spark-governor` is a Codex skill plus Spark helper agents for long tasks. It keeps one main Codex chat in charge while `GPT-5.3-Codex-Spark` helpers do most of the narrow work. The main chat plans the work, reviews the helper output, and decides when the task is really done.
 
-This package includes:
-- the `codex-spark-governor` skill
-- `spark_reader` Spark helper
-- `spark_builder` Spark helper
-- `spark_checker` Spark helper
-- a small Codex config snippet
+## Why it exists
+
+- long tasks can burn through your stronger-model limit too fast
+- one chat often says `done` too early on multi-step work
+- helper agents are useful, but without one clear reviewer the work gets messy and harder to trust
+- many users want visible progress in the main chat instead of losing the story across scattered runs
+
+If your Codex setup gives `GPT-5.3-Codex-Spark` its own limit, this package helps you use more of that limit for the bulk work while saving the stronger model for the expensive judgment calls.
+
+## What it does
+
+- keeps one main chat as the governor, reviewer, and final judge
+- uses Spark helpers for mapping, drafts, tests, first-pass fixes, and gap checks
+- keeps progress visible in the main chat
+- blocks early `done` calls with a strict final check
+
+## Best for
+
+- long coding tasks and other long repo tasks
+- tasks with many files or many review loops
+- users who want to spend more of their Spark limit without giving up strong review
+- repos that already have tests, local rules, or a clear way to prove the result
+
+## Not ideal for
+
+- tiny one-file fixes
+- tasks with nothing to test or review
+- repos where helper agents are not allowed
 
 ## Fast install
 
@@ -24,14 +43,23 @@ bash scripts/install.sh
 
 Then restart Codex.
 
-## What it is good for
+## Quick start
 
-- long coding tasks
-- tasks where you want visible status in the main Codex chat
-- tasks where you want Spark to do most of the heavy narrow work
-- tasks where you want a strict final check before `done`
+Use this in a new Codex chat:
 
-It is especially tuned for repos that use `AGENTS.md` and for safe API CLI work, but the main pattern can still help on other coding tasks too.
+```text
+Use $codex-spark-governor to finish this task from start to real completion.
+Keep the main chat as governor and final reviewer.
+Use Spark helpers for mapping, drafts, tests, and first-pass fixes.
+Do not say done early.
+```
+
+## How it works
+
+- `spark_reader` maps the repo, docs, task surface, and gaps
+- `spark_builder` handles one small code, docs, test, proof, or fix step at a time
+- `spark_checker` does a fast gap pass before the main chat does the last review
+- the main chat stays responsible for the plan, approvals, final review, and `done`
 
 ## Manual install
 
@@ -50,24 +78,12 @@ max_depth = 1
 
 The same snippet is included in `config/codex-config.toml`.
 
-## Example prompt
-
-```text
-Use $codex-spark-governor to build this task from start to true completion with the Spark helper agents. Keep the main chat as governor and final reviewer. Do not say done early.
-```
-
-## Repo layout
-
-- `skills/codex-spark-governor/` -> the skill
-- `agents/` -> the Spark helper agent files
-- `config/codex-config.toml` -> small optional config snippet
-- `scripts/install.sh` -> safe installer
-
 ## Notes
 
-- This package does not force your main model.
-- The helper agents are configured to use `gpt-5.3-codex-spark`.
-- If a helper misses the same narrow step twice, the main chat should step in.
+- this package does not force your main model
+- the helper agents are configured to use `gpt-5.3-codex-spark`
+- if a helper misses the same narrow step twice, the main chat should step in
+- if a repo has its own local instructions, standards, or proof steps, the main chat should follow those first
 
 ## License
 
