@@ -11,7 +11,7 @@ Use more of your Spark limit without giving up strong-model review.
 - helper agents are useful, but without one clear reviewer the work gets messy and harder to trust
 - many users want visible progress in the main chat instead of losing the story across scattered runs
 
-If your Codex setup gives `GPT-5.3-Codex-Spark` its own limit, this package helps you use more of that limit for the bulk work while saving the stronger model for the expensive judgment calls.
+If your OpenAI Codex subscription gives `GPT-5.3-Codex-Spark` its own limit, this package helps you use more of that limit for the bulk work while saving the stronger model for the expensive judgment calls.
 
 ## What it does
 
