@@ -1,0 +1,6 @@
+interface:
+  display_name: "Codex Spark Governor"
+  short_description: "Drive long coding tasks with Spark helpers"
+  default_prompt: "Use $codex-spark-governor to run this long coding task to true completion with subagents and strict final checks."
+policy:
+  allow_implicit_invocation: false

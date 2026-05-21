@@ -1,6 +1,0 @@
-interface:
-  display_name: "Long Task Governor"
-  short_description: "Drive long coding tasks to real completion"
-  default_prompt: "Use $long-task-governor to run this long coding task to true completion with subagents and strict final checks."
-policy:
-  allow_implicit_invocation: false

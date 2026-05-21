@@ -6,7 +6,7 @@ CODEX_DIR="${CODEX_HOME:-$HOME/.codex}"
 
 mkdir -p "$CODEX_DIR/skills" "$CODEX_DIR/agents"
 
-rsync -a "$ROOT_DIR/skills/long-task-governor/" "$CODEX_DIR/skills/long-task-governor/"
+rsync -a "$ROOT_DIR/skills/codex-spark-governor/" "$CODEX_DIR/skills/codex-spark-governor/"
 rsync -a "$ROOT_DIR/agents/" "$CODEX_DIR/agents/"
 
 if [ ! -f "$CODEX_DIR/config.toml" ]; then

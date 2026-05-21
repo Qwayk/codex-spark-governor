@@ -1,16 +1,16 @@
 ---
-name: long-task-governor
-description: Govern long coding tasks in the Codex app with visible progress, narrow subagents, and a strict finish line. Use when Codex should stay in one main chat, keep its context clean, drive a multi-step build or repair task from start to real completion, and avoid saying done early. Especially use for safe API CLI work in this repo where code, tests, docs, coverage, and standards all need to be checked before completion.
+name: codex-spark-governor
+description: Govern long coding tasks in the Codex app with visible progress, Spark helper agents, and a strict finish line. Use when Codex should stay in one main chat, keep its context clean, drive a multi-step build or repair task from start to real completion, and avoid saying done early. Especially use for safe API CLI work in this repo where code, tests, docs, coverage, and standards all need to be checked before completion.
 ---
 
-# Long Task Governor
+# Codex Spark Governor
 
 Use the main Codex chat as the only governor.
 
 Keep your own context focused on scope, decisions, blockers, and final judgment. Push noisy read-heavy work, narrow edits, and fast gap checks to the helper agents in `.codex/agents/`:
-- `ltg_reader`
-- `ltg_builder`
-- `ltg_checker`
+- `csg_reader`
+- `csg_builder`
+- `csg_checker`
 
 ## Start
 
@@ -53,7 +53,7 @@ Keep your own context focused on scope, decisions, blockers, and final judgment.
 
 ## Helper agents
 
-### `ltg_reader`
+### `csg_reader`
 
 Use for:
 - API doc mapping
@@ -64,7 +64,7 @@ Use for:
 - stale-name scans right after scaffolding
 - template drift checks
 
-### `ltg_builder`
+### `csg_builder`
 
 Use for:
 - one bounded code change
@@ -74,7 +74,7 @@ Use for:
 - one focused fix from review findings
 - one focused polish pass after review
 
-### `ltg_checker`
+### `csg_checker`
 
 Use for:
 - fast PASS/FAIL checks before final review
@@ -86,19 +86,19 @@ Use for:
 ## Recommended loop
 
 1. Map scope.
-   - Ask `ltg_reader` to map the surface, source docs, existing code, and missing pieces.
-   - After scaffolding, ask `ltg_reader` for a stale-name and template-drift scan before real writing starts.
+   - Ask `csg_reader` to map the surface, source docs, existing code, and missing pieces.
+   - After scaffolding, ask `csg_reader` for a stale-name and template-drift scan before real writing starts.
 2. Plan the smallest complete path.
    - Break the work into small checked steps.
    - Approve the endpoint list and coverage ledger in the main chat before broad implementation starts.
 3. Build in bounded slices.
-   - Use `ltg_builder` for one slice at a time.
+   - Use `csg_builder` for one slice at a time.
    - Push code, docs, proof, examples, and narrow test work to Spark by default.
 4. Verify after each meaningful slice.
    - Run the smallest real test or proof that matches the changed scope.
    - Review the helper result in the main chat and either accept it or send back one narrow fix.
 5. Run a gap pass before calling the task complete.
-   - Ask `ltg_checker` for missing endpoints, missing tests, docs drift, and standards drift.
+   - Ask `csg_checker` for missing endpoints, missing tests, docs drift, and standards drift.
    - If a helper misses the same narrow step twice, stop retrying that step and do the smallest direct main-chat fix needed to unblock progress.
 6. Do the final gate.
    - Follow `references/final-gate.md`.
@@ -125,4 +125,4 @@ Use for:
 - Prefer Spark helpers to save the stronger main chat for planning, tradeoffs, and final judgment.
 - Spark should write most first drafts and most first fixes. The stronger main chat should mostly approve, reject, and polish only where Spark still misses.
 - If a helper agent fails twice on the same narrow step, stop retrying that exact step and do the smallest direct work needed to unblock progress.
-- If the app exposes `/review`, use it as the last extra check. If it is not available, do a fresh direct final review in the main chat after `ltg_checker`.
+- If the app exposes `/review`, use it as the last extra check. If it is not available, do a fresh direct final review in the main chat after `csg_checker`.

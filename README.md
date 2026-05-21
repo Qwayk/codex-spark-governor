@@ -1,6 +1,6 @@
-# Codex Long Task Governor
+# Codex Spark Governor
 
-`long-task-governor` is a Codex skill plus Spark helper agents for long coding tasks.
+`codex-spark-governor` is a Codex skill plus Spark helper agents for long coding tasks.
 
 It is built for one simple pattern:
 - one strong main Codex chat stays in charge
@@ -8,17 +8,17 @@ It is built for one simple pattern:
 - the main chat reviews, approves, and decides when the task is really done
 
 This package includes:
-- the `long-task-governor` skill
-- `ltg_reader` Spark helper
-- `ltg_builder` Spark helper
-- `ltg_checker` Spark helper
+- the `codex-spark-governor` skill
+- `csg_reader` Spark helper
+- `csg_builder` Spark helper
+- `csg_checker` Spark helper
 - a small Codex config snippet
 
 ## Fast install
 
 ```bash
-git clone https://github.com/Qwayk/codex-long-task-governor.git
-cd codex-long-task-governor
+git clone https://github.com/Qwayk/codex-spark-governor.git
+cd codex-spark-governor
 bash scripts/install.sh
 ```
 
@@ -37,7 +37,7 @@ It is especially tuned for repos that use `AGENTS.md` and for safe API CLI work,
 
 Copy these folders into your Codex home:
 
-- `skills/long-task-governor/` -> `~/.codex/skills/long-task-governor/`
+- `skills/codex-spark-governor/` -> `~/.codex/skills/codex-spark-governor/`
 - `agents/*.toml` -> `~/.codex/agents/`
 
 If you do not already have an agents section in your Codex config, merge this snippet into `~/.codex/config.toml`:
@@ -53,12 +53,12 @@ The same snippet is included in `config/codex-config.toml`.
 ## Example prompt
 
 ```text
-Use $long-task-governor to build this task from start to true completion with the Spark helper agents. Keep the main chat as governor and final reviewer. Do not say done early.
+Use $codex-spark-governor to build this task from start to true completion with the Spark helper agents. Keep the main chat as governor and final reviewer. Do not say done early.
 ```
 
 ## Repo layout
 
-- `skills/long-task-governor/` -> the skill
+- `skills/codex-spark-governor/` -> the skill
 - `agents/` -> the Spark helper agent files
 - `config/codex-config.toml` -> small optional config snippet
 - `scripts/install.sh` -> safe installer
