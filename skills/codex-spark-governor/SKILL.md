@@ -15,6 +15,8 @@ Keep your own context focused on scope, decisions, blockers, and final judgment.
 ## Start
 
 - Restate the user goal and the true finish line in 2-4 short bullets.
+- Confirm the active setup in one short line: `$codex-spark-governor` with `spark_reader`, `spark_builder`, and `spark_checker`.
+- If you see old names like `$long-task-governor`, `ltg_reader`, `ltg_builder`, or `ltg_checker`, stop and tell the user to restart with the current names.
 - Read repo root instructions first when the repo has them.
 - Read the nearest local instructions before changing code.
 - Read:
@@ -48,9 +50,11 @@ Keep your own context focused on scope, decisions, blockers, and final judgment.
 - Ask only when a real blocker, real risk, or real business choice appears.
 - Prefer at most one write-capable subagent at a time.
 - Prefer narrow prompts and narrow file scopes.
+- If a code or docs batch will touch more than 2 files, send it to `spark_builder` first as one bounded slice.
 - Review each subagent result before moving on.
 - Keep important findings and decisions in the main thread so status stays visible in the app.
-- Do not let the main chat draft long code or long docs when a helper can do that bounded work.
+- Do not let the main chat draft first-pass multi-file code or docs work when `spark_builder` can do it.
+- Let the main chat write directly only for final polish, review fixes, or after Spark misses the same narrow step twice.
 
 ## Helper agents
 
@@ -110,6 +114,10 @@ Use for:
 - Never say `done` before tests or proof, docs or usage notes when needed, and repo rules are checked.
 - If the task promises full coverage, full cleanup, or full migration, do not claim that without an explicit checklist or map that matches the work.
 - Treat stale copied files, known mismatches, and known missing follow-up as unfinished work.
+- Before the PASS/FAIL table, write a short human summary that says:
+  - what was built or changed
+  - what was checked
+  - any small remaining risk or note
 - Before saying the build is ready, print a short final status table with PASS or FAIL for:
   - scope
   - code
@@ -124,5 +132,6 @@ Use for:
 
 - Prefer Spark helpers to save the stronger main chat for planning, tradeoffs, and final judgment.
 - Spark should write most first drafts and most first fixes. The stronger main chat should mostly approve, reject, and polish only where Spark still misses.
+- For bigger code or docs batches, Spark should usually write first and the stronger main chat should review after.
 - If a helper agent fails twice on the same narrow step, stop retrying that exact step and do the smallest direct work needed to unblock progress.
 - If the app exposes `/review`, use it as the last extra check. If it is not available, do a fresh direct final review in the main chat after `spark_checker`.

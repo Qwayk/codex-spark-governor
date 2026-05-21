@@ -31,6 +31,11 @@ Do not say `done` until every check below passes.
 8. Blocker check
 - Confirm there is no known real blocker, known mismatch, or known missing follow-up that should stop completion.
 
+Before the PASS/FAIL table, write a short human summary that says:
+- what was built or changed
+- what was checked
+- any small remaining risk or note
+
 Before saying the build is ready, print a short final status table with PASS or FAIL for:
 - scope
 - code

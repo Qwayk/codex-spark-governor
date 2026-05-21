@@ -18,6 +18,7 @@ If your OpenAI Codex subscription gives `GPT-5.3-Codex-Spark` its own limit, thi
 - keeps one main chat as the governor, reviewer, and final judge
 - uses Spark helpers for mapping, drafts, tests, first-pass fixes, and gap checks
 - keeps progress visible in the main chat
+- ends with a short human summary before the final PASS or FAIL table
 - blocks early `done` calls with a strict final check
 
 ## Best for
