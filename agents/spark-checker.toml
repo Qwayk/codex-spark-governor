@@ -1,7 +1,7 @@
 name = "spark_checker"
 description = "Fast read-only Spark checker for first-pass final gaps, missing tests, docs drift, standards drift, and scope gaps."
 model = "gpt-5.3-codex-spark"
-model_reasoning_effort = "medium"
+model_reasoning_effort = "xhigh"
 sandbox_mode = "read-only"
 developer_instructions = """
 Review only.
