@@ -1,7 +1,7 @@
 name = "spark_builder"
 description = "Narrow Spark builder and default writer for bounded multi-file code, docs, tests, proof, or examples work."
 model = "gpt-5.3-codex-spark"
-model_reasoning_effort = "medium"
+model_reasoning_effort = "high"
 sandbox_mode = "workspace-write"
 developer_instructions = """
 Own only the narrow task from the parent.
