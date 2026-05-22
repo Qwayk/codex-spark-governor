@@ -18,7 +18,7 @@ If your OpenAI Codex subscription gives `GPT-5.3-Codex-Spark` its own limit, thi
 - keeps one main chat as the governor, reviewer, and final judge
 - uses Spark helpers for mapping, drafts, tests, first-pass fixes, and gap checks
 - keeps progress visible in the main chat
-- ends with a short human summary before the final PASS or FAIL table
+- ends with a short human summary, a fresh strong-model scorecard, and then the final PASS or FAIL table
 - blocks early `done` calls with a strict final check
 
 ## Best for
@@ -90,7 +90,7 @@ Do not say done early.
 - `spark_reader` maps the repo, docs, task surface, and gaps
 - `spark_builder` handles one small code, docs, test, proof, or fix step at a time
 - `spark_checker` does a fast gap pass before the main chat does the last review
-- the main chat stays responsible for the plan, approvals, final review, and `done`
+- the main chat stays responsible for the plan, approvals, final review, scoring, and `done`
 
 ## Manual install
 
@@ -118,6 +118,8 @@ The same snippet is included in `config/codex-config.toml`.
 - this package does not force your main model
 - the helper agents are configured to use `gpt-5.3-codex-spark`
 - if a helper misses the same narrow step twice, the main chat should step in
+- if a helper fails to start, retry once with a smaller task before the main chat steps in
+- before `done`, the main chat should do one fresh reread, score the work, fix anything below target, and only then close
 - if a repo has its own local instructions, standards, or proof steps, the main chat should follow those first
 
 ## License

@@ -50,11 +50,13 @@ Keep your own context focused on scope, decisions, blockers, and final judgment.
 - Ask only when a real blocker, real risk, or real business choice appears.
 - Prefer at most one write-capable subagent at a time.
 - Prefer narrow prompts and narrow file scopes.
-- If a code or docs batch will touch more than 2 files, send it to `spark_builder` first as one bounded slice.
+- If a new code or docs batch will touch more than 1 file, send it to `spark_builder` first as one bounded slice.
 - Review each subagent result before moving on.
 - Keep important findings and decisions in the main thread so status stays visible in the app.
 - Do not let the main chat draft first-pass multi-file code or docs work when `spark_builder` can do it.
 - Let the main chat write directly only for final polish, review fixes, or after Spark misses the same narrow step twice.
+- If a Spark helper fails to start, retry once with a smaller and narrower task.
+- If the smaller retry also fails, say that clearly in the main chat and continue with the smallest direct main-chat step needed to keep moving.
 
 ## Helper agents
 
@@ -98,6 +100,7 @@ Use for:
 3. Build in bounded slices.
    - Use `spark_builder` for one slice at a time.
    - Push code, docs, proof, examples, and narrow test work to Spark by default.
+   - For first-draft code or docs, keep the main chat out unless the slice is truly only one file.
 4. Verify after each meaningful slice.
    - Run the smallest real test or proof that matches the changed scope.
    - Review the helper result in the main chat and either accept it or send back one narrow fix.
@@ -106,6 +109,8 @@ Use for:
    - If a helper misses the same narrow step twice, stop retrying that step and do the smallest direct main-chat fix needed to unblock progress.
 6. Do the final gate.
    - Follow `references/final-gate.md`.
+   - After Spark work is done, do one fresh strong-agent reread of the finished work before the final message.
+   - Score the work yourself with fresh eyes before closing.
 7. Say `done` only after the final gate passes.
 
 ## Done rules
@@ -114,10 +119,37 @@ Use for:
 - Never say `done` before tests or proof, docs or usage notes when needed, and repo rules are checked.
 - If the task promises full coverage, full cleanup, or full migration, do not claim that without an explicit checklist or map that matches the work.
 - Treat stale copied files, known mismatches, and known missing follow-up as unfinished work.
+- Before the final message, do one fresh strong-agent review pass on the finished work and score:
+  - scope
+  - code
+  - tests or proof
+  - docs
+  - standards match
+  - safety
+  - task-specific checks
+  - overall work quality
+- Use a 0-100 score for each area.
+- Treat any score below 100 as unfinished work.
+- If any score is below 100, fix the gap, rerun the needed checks, and score again before finishing.
+- Only stop below 100 if a real outside blocker remains and you say exactly what that blocker is.
 - Before the PASS/FAIL table, write a short human summary that says:
   - what was built or changed
   - what was checked
   - any small remaining risk or note
+  - what Spark did
+  - what the main chat did
+  - what the main chat fixed in the last polish pass
+- Before the PASS/FAIL table, name the exact last gaps the main chat found in the final strong-agent review and what it changed to fix them.
+- If the final strong-agent review found no new gap, say that clearly instead of skipping this line.
+- Before the PASS/FAIL table, print the final 0-100 scorecard for:
+  - scope
+  - code
+  - tests or proof
+  - docs
+  - standards match
+  - safety
+  - task-specific checks
+  - overall work quality
 - Before saying the build is ready, print a short final status table with PASS or FAIL for:
   - scope
   - code
