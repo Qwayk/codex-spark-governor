@@ -44,16 +44,46 @@ bash scripts/install.sh
 
 Then restart Codex.
 
+## Goal setup
+
+For big long tasks, turn on Goal support in your Codex config:
+
+```toml
+[features]
+goals = true
+multi_agent = true
+```
+
+If `/goal` does not show up in the app menu, save the config and fully restart Codex.
+
 ## Quick start
 
-Use this in a new Codex chat:
+Use normal chat for small tasks.
+
+Use `/goal` for long tasks that may take many steps or many review loops.
+
+Use one of these in a new Codex chat:
 
 ```text
-Use $codex-spark-governor to finish this task from start to real completion.
+/goal Use $codex-spark-governor to finish this task from start to real completion.
 Keep the main chat as governor and final reviewer.
 Use Spark helpers for mapping, drafts, tests, and first-pass fixes.
 Do not say done early.
 ```
+
+```text
+/goal Use $codex-spark-governor to refactor this feature safely, keep tests green, and finish only after final review passes.
+```
+
+```text
+/goal Use $codex-spark-governor to update these docs and examples, check for drift, and finish only when docs and proof match the real code.
+```
+
+## When to use Goal
+
+- use normal chat for small one-file work
+- use `/goal` for long tasks, bigger refactors, migrations, and work with many review loops
+- keep `$codex-spark-governor` inside the Goal text so the same main chat stays in charge
 
 ## How it works
 
@@ -72,6 +102,10 @@ Copy these folders into your Codex home:
 If you do not already have an agents section in your Codex config, merge this snippet into `~/.codex/config.toml`:
 
 ```toml
+[features]
+goals = true
+multi_agent = true
+
 [agents]
 max_threads = 4
 max_depth = 1

@@ -21,3 +21,8 @@ fi
 
 echo
 echo "Restart Codex to load the new skill and agents."
+echo "For long tasks, make sure your config has:"
+echo
+echo "[features]"
+echo "goals = true"
+echo "multi_agent = true"
